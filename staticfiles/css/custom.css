@@ -1,0 +1,177 @@
+
+.about-profile__container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.about-profile__pic {
+    flex: 0 0 30%;
+    margin-right: 2rem;
+}
+
+.about-profile__pic-img {
+    border-radius: 20%;
+    max-width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.about-profile__desc {
+    flex: 0 0 70%;
+}
+
+@media only screen and (max-width: 768px) {
+    .about-profile__container {
+        flex-direction: column;
+    }
+    
+    .about-profile__pic {
+        margin-right: 0;
+        margin-bottom: 2rem;
+        flex: 0 0 100%;
+    }
+    
+    .about-profile__desc {
+        flex: 0 0 100%;
+    }
+}
+
+
+/* Styles pour le carrousel défilant */
+.tech-carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+
+.tech-carousel-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.tech-carousel-track {
+  display: flex;
+  animation: scroll 30s linear infinite;
+  width: calc(200px * 20); /* Largeur de chaque élément * nombre d'éléments */
+}
+
+.tech-item {
+  flex: 0 0 auto;
+  width: 150px;
+  height: 100px;
+  margin: 0 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.tech-item img {
+  max-width: 100%;
+  max-height: 80px;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.tech-item:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-200px * 10)); /* Moitié de la largeur totale pour créer un défilement infini */
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tech-item {
+    width: 120px;
+    margin: 0 15px;
+  }
+  
+  .tech-carousel-track {
+    width: calc(150px * 20);
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-150px * 10));
+    }
+  }
+}
+/* Styles pour rendre les images responsives */
+.item-folio__thumb img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Media query pour les petits écrans */
+@media screen and (max-width: 768px) {
+    .masonry__brick {
+        width: 100% !important; /* Force la largeur à 100% sur mobile */
+    }
+    
+    .item-folio__thumb {
+        overflow: hidden;
+    }
+    
+    .item-folio__thumb img {
+        width: 100%;
+    }
+}
+.language-toggle {
+  margin-right: 15px;
+  position: relative;
+}
+
+.language-toggle select {
+  appearance: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 6px 12px;
+  padding-right: 30px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.language-toggle select:hover {
+  border-color: #ffffff;
+}
+
+.globe-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffff;
+  pointer-events: none;
+}
+
+/* Pour les écrans mobiles */
+@media screen and (max-width: 768px) {
+  .language-toggle select {
+      font-size: 12px;
+      padding: 4px 10px;
+      padding-right: 26px;
+  }
+  
+  .globe-icon {
+      right: 8px;
+  }
+}

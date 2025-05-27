@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load i18n %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Ibrahim Kabore</title>
+    <style>
+        :root {
+            --primary-color: #39b54a;
+            --secondary-color: rgb(6, 94, 18);
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+            --white: #fff;
+            --shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            margin-bottom: 30px;
+            border-radius: 0 0 15px 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: pulse 8s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.02);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+        }
+        
+        .profile-info h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .profile-info p {
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-info {
+            text-align: right;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-info p {
+            margin-bottom: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-info p:hover {
+            transform: translateX(-5px);
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-color);
+            animation: growWidth 1.5s forwards;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes growWidth {
+            to {
+                width: 100%;
+            }
+        }
+        
+        .formation-item, .experience-item {
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .formation-item:hover, .experience-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-color: rgba(57, 181, 74, 0.05);
+        }
+        
+        .formation-item h3, .experience-item h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .formation-item p, .experience-item p {
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        
+        .skills-container, .languages-container, .interests-container {
+            margin-bottom: 30px;
+        }
+        
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        
+        .skill-item span {
+            font-weight: 500;
+            width: 30%;
+        }
+        
+        .skill-bar {
+            width: 70%;
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-level::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            to {
+                left: 100%;
+            }
+        }
+        
+        .savoir-faire ul, .interests-container ul {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+        
+        .savoir-faire li, .interests-container li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .savoir-faire li:hover, .interests-container li:hover {
+            transform: translateX(5px);
+        }
+        
+        .savoir-faire li:before, .interests-container li:before {
+            content: "►";
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+            position: absolute;
+            left: 0;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(3px);
+            }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: pulse 8s infinite;
+        }
+        
+        footer p {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Animation classes */
+        .animated {
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 0.5s forwards;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-info {
+                text-align: center;
+                margin-top: 20px;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-info h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Mode sombre/clair toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+        
+        .dark-mode {
+            --primary-color: #39b54a;
+            --secondary-color: rgb(11, 69, 18);
+            --text-color: #e1e1e1;
+            --light-bg: #121212;
+            --white: #252525;
+            --shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .dark-mode .skill-bar {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body class="fade-in">
+    <button class="theme-toggle" id="themeToggle">🌓</button>
+    
+    <div class="container">
+        <header>
+            <div class="profile-info">
+                <h1 class="slide-in-right">IBRAHIM KABORE</h1>
+                <p>{% trans 'Étudiant en Master 1 Réseau Génie Logiciel' %}</p>
+                <p>24 ans</p>
+            </div>
+            <div class="contact-info">
+                <p>📧 Ibrahimkabore025@gmail.com</p>
+                <p>📱(+225) 07-05-25-55-96<br>01-02-33-17-40<br>05-84-60-30-11</p>
+                <p>📍 {% trans "Grand Bassam, Côte d\'Ivoire" %}</p>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="left-column">
+                <section class="formation">
+                    <h2 class="section-title">{% trans "PARCOURS ACADÉMIQUE" %}</h2>
+
+                    <div class="formation-item animated">
+                        <h3>{% trans "Master 1 en Réseau Génie Logiciel" %}</h3>
+                        <p>PIGIER ABIDJAN | 2024–2025</p>
+                    </div>
+                    <div class="formation-item animated">
+                        <h3>{% trans "Troisième Année Licence Professionnelle en Réseau Génie logiciel" %}</h3>
+                        <p>PIGIER ABIDJAN | 2022–2023</p>
+                    </div>
+                    
+                    <div class="formation-item animated">
+                        <h3>{% trans "Deuxième Année Licence Professionnelle en Réseau Génie Logiciel" %}</h3>
+                        <p>PIGIER ABIDJAN | 2021–2022</p>
+                    </div>
+                    
+                    <div class="formation-item animated">
+                        <h3>{% trans "Première Année Licence Professionnelle en Réseau Génie Logiciel" %}</h3>
+                        <p>PIGIER ABIDJAN | 2020–2021</p>
+                    </div>
+                    
+                    <div class="formation-item animated">
+                        <h3>{% trans "Certification Microsoft en Excel" %}</h3>
+                        <p>2020–2021</p>
+                    </div>
+                    
+                    <div class="formation-item animated">
+                        <h3>{% trans "Baccalauréat série D" %}</h3>
+                        <p>College Voltaire de Marcory | 2019–2020</p>
+                    </div>
+                </section>
+                
+                <section class="experience">
+                    <h2 class="section-title">{% trans "EXPÉRIENCE PROFESSIONNELLE" %}</h2>
+                    <div class="experience-item animated">
+                        <h3>{% trans "PRESTATION DE SERVICES CHEZ OILS OF AFRICA" %}</h3>
+                        <p>{% trans "JUIN 2024 - PRESENT" %}</p>
+                    </div>
+                    <div class="experience-item animated">
+                        <h3>{% trans "Stage de licence au PROGRAMME PAC-CI" %}</h3>
+                        <p>{% trans "JUILLET 2023 - MARS 2024" %}</p>
+                    </div>
+                </section>
+                
+                <section class="savoir-faire">
+                    <h2 class="section-title">{% trans "COMPÉTENCES TECHNIQUES" %}</h2>
+                    
+                    <ul class="animated">
+                        <li>{% trans "Concevoir une application WEB" %}</li>
+                        <li>{% trans "Concevoir une application mobile" %}</li>
+                        <li>{% trans "Générer des requêtes SQL" %}</li>
+                        <li>{% trans "Réaliser un spot audio" %}</li>
+                        <li>{% trans "Concevoir une base de données" %}</li>
+                        <li>{% trans "Concevoir des montages photos" %}</li>
+                        <li>{% trans "Réalisation d'affiche publicitaire" %}</li>
+                    </ul>
+                </section>
+            </div>
+            
+            <div class="right-column">
+                <section class="skills-container">
+                    <h2 class="section-title">{% trans "TECHNOLOGIES MAÎTRISÉES" %}</h2>
+                    
+                    <div class="skill-item animated">
+                        <span>HTML&CSS</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item animated">
+                        <span>JAVASCRIPT</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item animated">
+                        <span>ADOBE AUDITION</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item animated">
+                        <span>MICROSOFT OFFICE</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item animated">
+                        <span>PYTHON (DJANGO)</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item animated">
+                        <span>DJANGO REST API</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item animated">
+                        <span>SVELTE</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item animated">
+                        <span>FLUTTER</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item animated">
+                        <span>FLET</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="languages-container">
+                    <h2 class="section-title">{% trans "LANGUES" %}</h2>
+                    
+                    <div class="skill-item animated">
+                        <span>{% trans "Anglais" %}</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="interests-container">
+                    <h2 class="section-title">{% trans "CENTRES D'INTÉRÊT" %}</h2>
+                    
+                    <ul class="animated">
+                        <li>{% trans "Lecture" %}</li>
+                        <li>{% trans "Musique" %}</li>
+                        <li>{% trans "Sport : basket, football, footing" %}</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 Ibrahim Kabore - CV interactif</p>
+    </footer>
+
+    <script>
+        // Animations améliorées
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation d'entrée avec délai séquentiel
+            const animatedElements = document.querySelectorAll('.animated');
+            
+            animatedElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.classList.add('fade-in');
+                }, 150 * index);
+            });
+            
+            // Animation au défilement
+            function checkScroll() {
+                const elements = document.querySelectorAll('.animated:not(.fade-in)');
+                const windowHeight = window.innerHeight;
+                
+                elements.forEach(element => {
+                    const positionFromTop = element.getBoundingClientRect().top;
+                    
+                    if (positionFromTop - windowHeight <= 0) {
+                        element.classList.add('fade-in');
+                    }
+                });
+            }
+            
+            // Vérifier les éléments au défilement
+            window.addEventListener('scroll', checkScroll);
+            
+            // Première vérification au chargement
+            checkScroll();
+            
+            // Toggle mode sombre/clair avec animation
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    themeToggle.textContent = '☀️';
+                    themeToggle.style.transform = 'rotate(180deg)';
+                } else {
+                    themeToggle.textContent = '🌓';
+                    themeToggle.style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Animation améliorée des barres de compétences
+            const skillLevels = document.querySelectorAll('.skill-level');
+            skillLevels.forEach(skillLevel => {
+                const width = skillLevel.style.width;
+                skillLevel.style.width = '0';
+                
+                setTimeout(() => {
+                    skillLevel.style.transition = 'width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    skillLevel.style.width = width;
+                }, 500);
+            });
+            
+            // Animation des éléments au survol
+            const formationItems = document.querySelectorAll('.formation-item, .experience-item');
+            formationItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.backgroundColor = 'rgba(57, 181, 74, 0.1)';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.backgroundColor = 'transparent';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

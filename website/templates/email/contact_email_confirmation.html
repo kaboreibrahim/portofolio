@@ -1,0 +1,99 @@
+<!-- contact_email_confirmation.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de réception</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .email-container {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-body {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .email-footer {
+            background-color: #f1f1f1;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .social-icons {
+            margin-top: 15px;
+        }
+        .social-icons a {
+            display: inline-block;
+            margin: 0 5px;
+            color: #666;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>{% trans "Confirmation de réception" %}</h1>
+        </div>
+        <div class="email-body">
+            <h2>    {% trans "Bonjour" %} {{ name }},</h2>
+            <p>{% trans "Nous avons bien reçu votre message et nous vous en remercions." %}</p>
+            <p>{% trans "Nous traitons actuellement votre demande concernant" %} "<strong>{{ subject }}</strong>" {% trans "et nous vous répondrons dans les plus brefs délais." %}</p>
+            <p>{% trans "Pour rappel, voici les informations que vous nous avez communiquées :" %}</p>
+            <ul>
+                <li><strong>{% trans "Nom" %} :</strong> {{ name }}</li>
+                <li><strong>{% trans "Email" %} :</strong> {{ email }}</li>
+                <li><strong>{% trans "Téléphone" %} :</strong> {{ phone }}</li>
+                <li><strong>{% trans "Sujet" %} :</strong> {{ subject }}</li>
+                <li><strong>{% trans "Message" %} :</strong> {{ message }}</li>
+            </ul>
+            <p>{% trans "Si vous souhaitez nous contacter à nouveau, n'hésitez pas à utiliser le formulaire de contact sur notre site ou à répondre directement à cet email." %}</p>
+            <a href="#" class="button">{% trans "Visiter notre site" %}</a>
+        </div>
+        <div class="email-footer">
+            <p>© 2025 ibrak.Dev. Tous droits réservés.</p>
+            <div class="social-icons">
+                <a href="#">Facebook</a> | 
+                <a href="#">Twitter</a> | 
+                <a href="#">LinkedIn</a> | 
+                <a href="#">Instagram</a>
+            </div>
+            <p>{% trans "Vous recevez cet email suite à votre demande de contact." %}</p>
+        </div>
+    </div>
+
+    <script>
+        // Script pour tracker l'ouverture de l'email (optionnel)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vous pouvez ajouter ici un script pour tracker l'ouverture de l'email
+            // Exemple : envoyer une requête à votre serveur
+            console.log('Email ouvert par {{ email }}');
+        });
+    </script>
+</body>
+</html>

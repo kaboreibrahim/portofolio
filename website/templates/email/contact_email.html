@@ -1,0 +1,142 @@
+<!-- contact_email.html -->
+<!DOCTYPE html>
+<html lang="fr">
+{% load i18n %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouveau message de contact</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .email-container {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-body {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .email-footer {
+            background-color: #f1f1f1;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .info-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .info-item {
+            border-bottom: 1px solid #eaeaea;
+            padding: 10px 0;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+        .message-box {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-top: 20px;
+        }
+        .action-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .date-time {
+            font-size: 12px;
+            color: #777;
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>{% trans "Nouveau message de contact" %}</h1>
+        </div>
+        <div class="email-body">
+            <h2>{% trans "Un visiteur a soumis un nouveau message" %}</h2>
+            <p>{% trans "Vous avez reçu un nouveau message via le formulaire de contact de votre site web." %}</p>
+            
+            <div class="info-section">
+                <div class="info-item">
+                    <span class="label">{% trans "Nom" %} :</span> 
+                    <span>{{ name }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">{% trans "Email" %} :</span> 
+                    <span>{{ email }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">{% trans "Téléphone" %} :</span> 
+                    <span>{{ phone }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">{% trans "Sujet" %} :</span> 
+                    <span>{{ subject }}</span>
+                </div>
+                
+            </div>
+            
+            <div class="message-box">
+                <div class="label">{% trans "Message" %} :</div>
+                <p>{{ message }}</p>
+            </div>
+            
+            <a href="mailto:{{ email }}" class="action-button">{% trans "Répondre au contact" %}</a>
+            
+            <div class="date-time">
+                <p>{% trans "Message reçu le" %} <span id="currentDate"></span> à <span id="currentTime"></span></p>
+            </div>
+        </div>
+        <div class="email-footer">
+            <p>© 2025 {% trans "Votre Système de Gestion de Contacts" %}. Tous droits réservés.</p>
+            <p>{% trans "Cet email est généré automatiquement, merci de ne pas y répondre directement." %}</p>
+        </div>
+    </div>
+
+    <script>
+        // Script pour afficher la date et l'heure actuelles
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            
+            // Format de la date: JJ/MM/AAAA
+            const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('fr-FR', dateOptions);
+            
+            // Format de l'heure: HH:MM
+            const timeOptions = { hour: '2-digit', minute: '2-digit' };
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString('fr-FR', timeOptions);
+            
+            // Vous pouvez ajouter d'autres fonctionnalités JavaScript ici si nécessaire
+        });
+    </script>
+</body>
+</html>

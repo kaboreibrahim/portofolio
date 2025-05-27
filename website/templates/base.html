@@ -1,0 +1,1132 @@
+{% load static %}
+{% load static i18n %}
+{% load i18n %}
+<!DOCTYPE html>
+<!--[if lt IE 9 ]><html class="no-js oldie" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Porto Folio-kabore ibrahim</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/vendor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- script
+    ================================================== -->
+    <script src="{% static 'js/modernizr.js' %}"></script>
+    <script src="{% static 'js/pace.min.js' %}"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+
+</head>
+<style>
+    /* Basic styling for the language dropdown */
+    .header-right-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .language-dropdown {
+      position: relative;
+    }
+    
+    .language-toggle {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .language-toggle:hover {
+      background-color: #f8f8f8;
+      border-color: #999;
+    }
+    
+    .language-toggle .globe-icon {
+      font-size: 20px;
+    }
+    
+    .language-toggle .selected-language {
+      font-weight: bold;
+    }
+    
+    .language-toggle .arrow {
+      font-size: 12px;
+    }
+    
+    /* Dropdown menu */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 150px;
+      z-index: 10;
+      padding: 10px 0;
+    }
+    
+    .dropdown-menu.show {
+      display: block;
+    }
+    
+    .dropdown-item {
+      padding: 8px 15px;
+      font-size: 14px;
+      color: #333;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .dropdown-item:hover {
+      background-color: #f1f1f1;
+    }
+    
+    .dropdown-item.active {
+      font-weight: bold;
+      color: #007bff;
+    }
+    
+    .language-flag {
+      width: 20px;
+      height: 14px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    /* Specific flag icons */
+    .flag-icon-us {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg');
+    }
+    
+    .flag-icon-fr {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg');
+    }
+    
+    /* Small screen adjustments */
+    @media (max-width: 768px) {
+      .language-toggle {
+        font-size: 14px;
+      }
+    
+      .dropdown-menu {
+        width: 100%;
+      }
+    }
+    
+    .masonry__brick {
+        margin-bottom: 20px; /* Ajoute un espacement en bas de chaque élément */
+        padding: 6px; /* Ajoute un peu d'espacement intérieur */
+    }
+</style>
+<body id="top">
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages%}
+  
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="{% url 'accueil' %}">
+                <img src="{% static 'images/logo.png' %}" alt="KABORE IBRAHIM" >
+            </a>
+        </div> 
+
+       
+
+        <nav class="header-nav">
+
+            <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
+
+            <div class="header-nav__content">
+                <h3>{% trans 'Navigation' %}</h3>
+                
+                <ul class="header-nav__list">
+                    <li class="current"><a class="smoothscroll"  href="#home" title="home">{% trans 'Accueil' %}</a></li>
+                    <li><a class="smoothscroll"  href="#about" title="about">{% trans 'A propos' %}</a></li>
+                    <li><a class="smoothscroll"  href="#services" title="services">{% trans 'Services' %}</a></li>
+                    <li><a class="smoothscroll"  href="#works" title="works">{% trans 'Projets' %}</a></li>
+                    <li><a class="smoothscroll"  href="#clients" title="clients">{% trans 'Clients' %}</a></li>
+                    <li><a class="smoothscroll"  href="#contact" title="contact">{% trans 'Contact' %}</a></li>
+                    <li><a  href="{% url 'cv' %}" title="CV">{% trans 'curriculum vitae' %}</a></li>
+                </ul>
+    
+                <p>{% trans 'Je suis un freelance en design et developpement fullstack qui propose des services de creation de site web, SEO, application web, et application mobile.' %}</p>
+    
+                <ul class="header-nav__social">
+                    <li>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-behance"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-dribbble"></i></a>
+                    </li>
+                </ul>
+
+            </div> <!-- end header-nav__content -->
+
+        </nav>  <!-- end header-nav -->
+
+    <!-- Par celle-ci -->
+    </nav>  <!-- end header-nav -->
+
+    <div class="header-right-wrapper" style="display: flex; align-items: center; justify-content: flex-end; margin-top: 8rem; margin-right:2rem;">
+        <div class="header-right-wrapper">
+            <div class="nav-item language-dropdown">
+                <button class="language-toggle" id="languageSelector">
+                    <span class="globe-icon"></span>
+                    <span class="selected-language">{% trans "langue" %}</span> <!-- Initially displaying French -->
+                    <span class="arrow">▼</span>
+                </button>
+                
+                <div class="dropdown-menu shadow-sm" aria-labelledby="languageSelector" id="languageMenu">
+                    <a class="dropdown-item active" href="/en/" data-lang="English">
+                        <span class="language-flag flag-icon flag-icon-us"></span>
+                        English
+                    </a>
+                    <a class="dropdown-item" href="/fr/" data-lang="Français">
+                        <span class="language-flag flag-icon flag-icon-fr"></span>
+                        Français
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+        
+        <a class="header-menu-toggle" href="#0">
+            <span class="header-menu-text">{% trans 'Menu' %}</span>
+            <span class="header-menu-icon"></span>
+        </a>
+    </div>
+</header> <!-- end s-header -->
+
+
+    <!-- home
+    ================================================== -->
+    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="{% static 'images/hero-bg.jpg' %}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+
+        <div class="overlay"></div>
+        <div class="shadow-overlay"></div>
+
+        <div class="home-content">
+
+            <div class="row home-content__main">
+
+                <h3>{% trans 'Bienvenue sur mon portfolio' %}</h3>
+
+                <h1 id="typingTitle" class="text-white">{% trans 'Je suis un freelance en design et developpement fullstack qui propose des services de creation de site web, SEO, application web, et application mobile.' %}</h1>
+                <p class="text-white mb-4" id="typingText">{% trans 'Solution de livraison sur mesure pour entreprises, e-commerce et professionnels' %}</p>
+                
+
+
+                <div class="home-content__buttons">
+                    <a href="#contact" class="smoothscroll btn btn--stroke">
+                        {% trans 'Contactez-moi' %}
+                    </a>
+                    <a href="#about" class="smoothscroll btn btn--stroke">
+                        {% trans "Plus d'infos" %}
+                    </a>
+                </div>
+
+
+            </div>
+
+            <div class="home-content__scroll">
+                <a href="#about" class="scroll-link smoothscroll">
+                    <span>{% trans 'Faites Defiler' %}</span>
+                </a>
+            </div>
+
+            <div class="home-content__line"></div>
+
+        </div> <!-- end home-content -->
+
+
+        <ul class="home-social">
+            <li>
+                <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i><span>Facebook</span></a>
+            </li>
+            <li>
+                <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twiiter</span></a>
+            </li>
+            <li>
+                <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+            </li>
+            <li>
+                <a href="#0"><i class="fa fa-behance" aria-hidden="true"></i><span>Behance</span></a>
+            </li>
+            <li>
+                <a href="#0"><i class="fa fa-dribbble" aria-hidden="true"></i><span>Dribbble</span></a>
+            </li>
+        </ul> 
+        <!-- end home-social -->
+
+    </section> <!-- end s-home -->
+
+
+    <section id='about' class="s-about">
+        <div class="row section-header has-bottom-sep" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead subhead--dark">{% trans 'Bienvenue sur mon portfolio' %}</h3>
+                <h1 class="display-1 display-1--light">{% trans 'je suis Ibrahim Kabore' %}</h1>
+            </div>
+        </div> <!-- end section-header -->
+        
+        <div class="row about-profile" data-aos="fade-up">
+            <div class="col-full">
+                <div class="about-profile__container">
+                    <div class="about-profile__pic">
+                        <img src="{% static 'images/kaboreibrahim.jpg' %}" alt="Photo de Ibrahim Kabore" class="about-profile__pic-img">
+                    </div>
+                    <div class="about-profile__desc" style="text-align: justify;">
+                        <p class="drop-cap">
+                            {% trans "Passionné par le développement web et mobile, je suis un freelance spécialisé en design et développement fullstack. Mon expertise couvre la création de sites web personnalisés, l'optimisation SEO, ainsi que le développement d'applications web et mobiles performantes adaptées à vos besoins." %}
+                        </p>
+                        <p>
+                            {% trans "Mon approche combine créativité, rigueur technique et écoute attentive pour transformer vos idées en solutions digitales efficaces. Je m'engage à livrer des projets de qualité qui non seulement répondent à vos attentes mais contribuent également à renforcer votre présence en ligne et à atteindre vos objectifs professionnels." %}
+                        </p>
+                        <p>
+                            {% trans "Que vous soyez une entreprise cherchant à moderniser votre site web, un entrepreneur souhaitant lancer une application innovante, ou un particulier ayant besoin d'une présence en ligne professionnelle, je vous accompagne à chaque étape de votre projet numérique." %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end about-profile -->
+        
+        <div class="row about-stats stats block-1-4 block-m-1-2 block-mob-full" data-aos="fade-up">
+            <div class="col-block stats__col">
+                <div class="stats__count">10</div>
+                <h5>{% trans 'Projets Réalisés' %}</h5>
+            </div>
+            <div class="col-block stats__col">
+                <div class="stats__count">10</div>
+                <h5>{% trans 'Clients Satisfaits' %}</h5>
+            </div>
+            <div class="col-block stats__col">
+                <div class="stats__count">8</div>
+                <h5>{% trans 'Technologies Maîtrisées' %}</h5>
+            </div>
+            <div class="col-block stats__col">
+                <div class="stats__count">3</div>
+                <h5>{% trans "Années d'Expérience" %}</h5>
+            </div>
+        </div> <!-- end about-stats -->
+        
+        <div class="about__line"></div>
+    </section> <!-- end s-about -->
+
+
+    <!-- services
+    ================================================== -->
+    <section id='services' class="s-services">
+
+        <div class="row section-header has-bottom-sep" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">{% trans 'Mes Services' %}</h3>
+                <h1 class="display-2">{% trans 'Solutions Digitales Complètes' %}</h1>
+            </div>
+        </div> <!-- end section-header -->
+    
+        <div class="row services-list block-1-2 block-tab-full">
+    
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-earth"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">{% trans 'Création de Site Web' %}</h3>
+                    <p>{% trans "Conception et développement de sites web sur mesure, responsive et modernes qui reflètent l'identité de votre marque. Du site vitrine au site e-commerce, chaque projet est conçu pour optimiser l'expérience utilisateur et atteindre vos objectifs commerciaux." %}</p>
+                </div>
+            </div>
+    
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-lego-block"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">{% trans 'Développement Fullstack' %}</h3>
+                    <p>{% trans "Développement complet d'applications web complexes, de la conception de l'architecture jusqu'à l'implémentation frontend et backend. Utilisation des technologies modernes pour créer des solutions robustes, évolutives et performantes." %}</p>
+                </div>
+            </div>
+    
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-cube"></i>
+                </div>  
+                <div class="service-text">
+                    <h3 class="h2">{% trans 'Applications Mobiles' %}</h3>
+                    <p>{% trans "Développement d'applications mobiles natives ou hybrides pour iOS et Android. Une attention particulière est portée à l'ergonomie, aux performances et à l'expérience utilisateur pour garantir des applications fluides et intuitives." %}</p>
+                </div>
+            </div>
+    
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-megaphone"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">{% trans 'SEO & Référencement' %}</h3>
+                    <p>{% trans "Optimisation de votre présence en ligne grâce à des stratégies SEO efficaces. Analyse de mots-clés, optimisation technique, création de contenu pertinent et suivi des performances pour améliorer votre visibilité sur les moteurs de recherche." %}</p>
+                </div>
+            </div>
+    
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="icon-paint-brush"></i>
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">{% trans 'Design UI/UX' %}</h3>
+                    <p>{% trans "Création d'interfaces utilisateur esthétiques et fonctionnelles qui offrent une expérience utilisateur optimale. Wireframing, prototypage et design responsive pour tous vos projets digitaux, avec une approche centrée sur l'utilisateur." %}</p>
+                </div>
+            </div>
+        
+            <div class="col-block service-item" data-aos="fade-up">
+                <div class="service-icon"><i class="icon-group"></i></div>
+                <div class="service-text">
+                    <h3 class="h2">{% trans 'Maintenance & Support' %}</h3>
+                    <p>{% trans "Accompagnement sur le long terme avec des services de maintenance, mises à jour et support technique pour garantir la pérennité et la sécurité de vos projets. Solutions de monitoring et d'amélioration continue pour optimiser vos plateformes." %}</p>
+                </div>
+            </div>
+    
+        </div> <!-- end services-list -->
+    
+    </section> <!-- end s-services -->
+    <!-- works
+    ================================================== -->
+    <section id='works' class="s-works">
+
+        <div class="intro-wrap">
+                
+            <div class="row section-header has-bottom-sep light-sep" data-aos="fade-up">
+                <div class="col-full">
+                    <h3 class="subhead">{% trans 'Mes Réalisations' %}</h3>
+                    <h1 class="display-2 display-2--light">{% trans 'Des solutions digitales adaptées à vos besoins' %}</h1>
+                </div>
+            </div> <!-- end section-header -->
+    
+        </div> <!-- end intro-wrap -->
+    
+        <div class="row works-content">
+            <div class="col-full masonry-wrap">
+                <div class="masonry">
+    
+                    <div class="masonry__brick" data-aos="fade-up">
+                        <div class="item-folio">
+                                
+                            <div class="item-folio__thumb">
+                                <a href="{% static 'images/portfolio/projets/gestionstock.jpg' %}" class="thumb-link" title="{% trans 'application  de gestion stock' %}" data-size="1050x700">
+                                    <img src="{% static 'images/portfolio/projets/gestionstock.jpg' %}" 
+                                         srcset="{% static 'images/portfolio/projets/gestionstock.jpg' %} 1x, {% static 'images/portfolio/projets/gestionstock.jpg' %} 2x" alt="Appro Stock">
+                                </a>
+                            </div>
+    
+                            <div class="item-folio__text">
+                                <h3 class="item-folio__title">
+                                    {% trans 'Appro Stock' %}
+                                </h3>
+                                <p class="item-folio__cat">
+                                    {% trans 'Application Web' %}
+                                </p>
+                            </div>
+    
+                            <a href="https://approstock.com/login" target="_blank" class="item-folio__project-link" title="{% trans 'Voir le projet' %}">
+                                <i class="icon-link"></i>
+                            </a>
+    
+                            <div class="item-folio__caption">
+                                
+                                <p>{% trans "Conception et développement d'une application de gestion de stock pour le PROGRAMME PACCI. intégration d'un système de rappel des produits en voir de péremption et des produits en rupture de stock. et un dashboard pour suivre les stocks." %}</p>
+                            </div>
+    
+    
+                        </div>
+                    </div> <!-- end masonry__brick -->
+    
+                    <div class="masonry__brick" data-aos="fade-up">
+                        <div class="item-folio">
+                                
+                            <div class="item-folio__thumb">
+                                <a href="{% static 'images/portfolio/projets/oils_of_africa.png' %}" class="thumb-link" title="{% trans 'site web oils of africa' %}" data-size="1050x700">
+                                    <img src="{% static 'images/portfolio/projets/oils_of_africa.png' %}" 
+                                         srcset="{% static 'images/portfolio/projets/oils_of_africa.png' %} 1x, {% static 'images/portfolio/projets/oils_of_africa.png' %} 2x" alt="Site web oils of africa">
+                                </a>
+                            </div>
+    
+                            <div class="item-folio__text">
+                                <h3 class="item-folio__title">
+                                    {% trans 'Oils of Africa' %}
+                                </h3>
+                                <p class="item-folio__cat">
+                                    {% trans 'Site Web+SEO' %}
+                                </p>
+                            </div>
+    
+                            <a href="#" class="item-folio__project-link" title="Voir le projet">
+                                <i class="icon-link"></i>
+                            </a>
+    
+                            <div class="item-folio__caption">
+                                <p>{% trans "Développement d'un site web pour l'entreprise oils of africa, avec un design moderne et responsive, multi-langue et un contenu pertinent pour atteindre les objectifs de l'entreprise." %}</p>
+                            </div>
+    
+                        </div>
+                    </div> <!-- end masonry__brick -->
+    
+                    <div class="masonry__brick" data-aos="fade-up">
+                        <div class="item-folio">
+                                
+                            <div class="item-folio__thumb">
+                                <a href="{% static 'images/portfolio/projets/suivi_empotage.png' %}" class="thumb-link" title="Application Suivi Empotage" data-size="1050x700">
+                                    <img src="{% static 'images/portfolio/projets/suivi_empotage.png' %}"
+                                         srcset="{% static 'images/portfolio/projets/suivi_empotage.png' %} 1x, {% static 'images/portfolio/projets/suivi_empotage.png' %} 2x" alt="Suivi Empotage">
+                                </a>
+                            </div>
+    
+                            <div class="item-folio__text">
+                                <h3 class="item-folio__title">
+                                    {% trans 'Suivi Empotage' %}
+                                </h3>
+                                <p class="item-folio__cat">
+                                    {% trans 'Application Suivi Empotage' %}
+                                </p>
+                            </div>
+    
+                            <a href="#" class="item-folio__project-link" title="{% trans 'Voir le projet' %}">
+                                <i class="icon-link"></i>
+                            </a>
+    
+                            <div class="item-folio__caption">
+                                <p>{% trans "Conception d'une plateforme de suivi empotage avec suivi en temps réel des opérations, avec tableau de bord administrateur, synchronisation en temps réel et rapports personnalisables." %}</p>
+                            </div>
+    
+                        </div>
+                    </div> <!-- end masonry__brick -->
+    
+                    <div class="masonry__brick" data-aos="fade-up">
+                        <div class="item-folio">
+                                
+                            <div class="item-folio__thumb">
+                                <a href="{% static 'images/portfolio/projets/application_livreur.png' %}" class="thumb-link" title="{% trans 'Site Vitrine Livreur Pro' %}" data-size="1050x700">
+                                    <img src="{% static 'images/portfolio/projets/application_livreur.png' %}" 
+                                         srcset="{% static 'images/portfolio/projets/application_livreur.png' %} 1x, {% static 'images/portfolio/projets/application_livreur.png' %} 2x" alt="{% trans 'Site web Livreur Pro' %}">
+                                </a>
+                            </div>
+    
+                            <div class="item-folio__text">
+                                <h3 class="item-folio__title">
+                                    {% trans 'Livreur Pro' %}
+                                </h3>
+                                <p class="item-folio__cat">
+                                    {% trans 'Site Vitrine + SEO' %}
+                                </p>
+                            </div>
+    
+                            <a href="#" class="item-folio__project-link" title="Voir le projet">
+                                <i class="icon-link"></i>
+                            </a>
+    
+                            <div class="item-folio__caption">
+                                <p>{% trans "Conception  d'un site vitrine élégant pour un service de livraison avec optimisation SEO locale pour améliorer la visibilité." %}</p>
+                            </div>
+    
+                        </div>
+                    </div> <!-- end masonry__brick -->
+    
+                    <div class="masonry__brick" data-aos="fade-up">
+                        <div class="item-folio">
+                                
+                            <div class="item-folio__thumb">
+                                <a href="{% static 'images/portfolio/projets/app_livreurpro.png' %}" class="thumb-link" title="{% trans 'Application Web Mon Livreur Pro' %}" data-size="1050x700">
+                                    <img src="{% static 'images/portfolio/projets/app_livreurpro.png' %}" 
+                                         srcset="{% static 'images/portfolio/projets/app_livreurpro.png' %} 1x, {% static 'images/portfolio/projets/app_livreurpro.png' %} 2x" alt="{% trans 'Application web Livreur Pro' %}">
+                                </a>
+                            </div>
+    
+                            <div class="item-folio__text">
+                                <h3 class="item-folio__title">
+                                    {% trans 'Mon Livreur Pro' %}
+                                </h3>
+                                <p class="item-folio__cat">
+                                    {% trans 'Application Web' %}
+                                </p>
+                            </div>
+    
+                            <a href="#" class="item-folio__project-link" title="Voir le projet">
+                                <i class="icon-link"></i>
+                            </a>
+    
+                            <div class="item-folio__caption">
+                                <p>{% trans "Développement d'une application web de livraison avec suivi des livraisons, gestion des commandes et des stocks pour un service de livraison." %}</p>
+                            </div>
+    
+                        </div>
+                    </div> <!-- end masonry__brick -->
+    
+                    <div class="masonry__brick" data-aos="fade-up">
+                        <div class="item-folio">
+                                
+                            <div class="item-folio__thumb">
+                                <a href="{% static 'images/portfolio/projets/mopakam.png' %}" class="thumb-link" title="{% trans 'Site e-commerce Mopakam' %}" data-size="1050x700">
+                                    <img src="{% static 'images/portfolio/projets/mopakam.png' %}"
+                                         srcset="{% static 'images/portfolio/projets/mopakam.png' %} 1x, {% static 'images/portfolio/projets/mopakam.png' %} 2x" alt="{% trans 'Site e-commerce Mopakam' %}">
+                                </a>
+                            </div>
+    
+                            <div class="item-folio__text">
+                                <h3 class="item-folio__title">
+                                    {% trans 'Mopakam' %}
+                                </h3>
+                                <p class="item-folio__cat">
+                                    {% trans 'Site E-commerce+CEO' %}
+                                </p>
+                            </div>
+    
+                            <a href="#" class="item-folio__project-link" title="Voir le projet">
+                                <i class="icon-link"></i>
+                            </a>
+    
+                            <div class="item-folio__caption">
+                                <p>{% trans "Création d'un site e-commerce avec un site vitrine et un site CEO pour une entreprise de produits de volaille avec integration d'un agent IA comme assistant client." %}</p>
+                            </div>
+    
+                        </div>
+                    </div> <!-- end masonry__brick -->
+
+                    <div class="masonry__brick" data-aos="fade-up">
+                        <div class="item-folio">
+                                
+                            <div class="item-folio__thumb">
+                                <a href="{% static 'images/portfolio/projets/cosmetic.png' %}" class="thumb-link" title="site e-commerce Cosmetic" data-size="1050x700">
+                                    <img src="{% static 'images/portfolio/projets/cosmetic.png' %}"
+                                         srcset="{% static 'images/portfolio/projets/cosmetic.png' %} 1x, {% static 'images/portfolio/projets/cosmetic.png' %} 2x" alt="Site e-commerce Cosmetic">
+                                </a>
+                            </div>
+    
+                            <div class="item-folio__text">
+                                <h3 class="item-folio__title">
+                                    {% trans 'Ghislaine Cosmetic' %}
+                                </h3>
+                                <p class="item-folio__cat">
+                                    {% trans 'Site E-commerce+CEO' %}
+                                </p>
+                            </div>
+    
+                            <a href="#" class="item-folio__project-link" title="Voir le projet">
+                                <i class="icon-link"></i>
+                            </a>
+    
+                            <div class="item-folio__caption">
+                                <p>{% trans "Création d'un site e-commerce avec un site vitrine et un site CEO pour une entreprise de produits de beauté ." %}</p>
+                            </div>
+    
+                        </div>
+                    </div> <!-- end masonry__brick -->
+
+                    <div class="masonry__brick" data-aos="fade-up">
+                        <div class="item-folio">
+                                
+                            <div class="item-folio__thumb">
+                                <a href="{% static 'images/portfolio/projets/church.png' %}" class="thumb-link" title="{% trans 'Site web Eglise' %}" data-size="1050x700">
+                                    <img src="{% static 'images/portfolio/projets/church.png' %}"
+                                         srcset="{% static 'images/portfolio/projets/church.png' %} 1x, {% static 'images/portfolio/projets/church.png' %} 2x" alt="{% trans 'Site web Eglise' %}">
+                                </a>
+                            </div>
+    
+                            <div class="item-folio__text">
+                                <h3 class="item-folio__title">
+                                    {% trans 'Eglise' %}
+                                </h3>
+                                <p class="item-folio__cat">
+                                    {% trans 'Site Web + CEO' %}
+                                </p>
+                            </div>
+    
+                            <a href="#" class="item-folio__project-link" title="Voir le projet">
+                                <i class="icon-link"></i>
+                            </a>
+    
+                            <div class="item-folio__caption">
+                                <p>{% trans "Création d'un site web avec un site vitrine et un site CEO pour une église assemblée de Dieu ." %}</p>
+                            </div>
+    
+                        </div>
+                    </div> <!-- end masonry__brick -->
+                </div> <!-- end masonry -->
+            </div> <!-- end col-full -->
+        </div> <!-- end works-content -->
+    
+    </section> <!-- end s-works -->
+    <!-- Nouvelle section avec carrousel défilant -->
+ 
+    <!-- Fin de la section carrousel -->
+  
+    <!-- clients
+    ================================================== -->
+    <section id="clients" class="s-clients">
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">{% trans 'Compétences' %}</h3>
+                <h1 class="display-2">{% trans 'Mes Langages et Outils' %}</h1>
+            </div>
+        </div> <!-- end section-header -->
+
+        <div class="page-section">
+        
+        
+            <div class="tech-carousel">
+                <div class="tech-carousel-container">
+                <div class="tech-carousel-track">
+                    <!-- Répétez ces éléments pour créer l'effet de défilement infini -->
+                    <div class="tech-item"><img src="{% static 'images/services/html5.png' %}" alt="HTML5"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/CSS3.png' %}" alt="CSS3"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/js.png' %}" alt="JavaScript"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/svelte.png' %}" alt="Svelte Kit"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/flet.png' %}" alt="Flet"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/python.png' %}" alt="Phyton"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/django.png' %}" alt="Django"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/MySQL.png' %}" alt="MySQL"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/Postgresql.png' %}" alt="Postgresql"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/photoshop.png' %}" alt="Photoshop"></div>
+                    <!-- Répétition des éléments pour un défilement continu -->
+                    <div class="tech-item"><img src="{% static 'images/services/html5.png' %}" alt="HTML5"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/CSS3.png' %}" alt="CSS3"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/js.png' %}" alt="JavaScript"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/svelte.png' %}" alt="Svelte Kit"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/flet.png' %}" alt="Flet"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/python.png' %}" alt="Phyton"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/django.png' %}" alt="Django"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/MySQL.png' %}" alt="MySQL"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/Postgresql.png' %}" alt="Postgresql"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/photoshop.png' %}" alt="Photoshop"></div>
+                    <!-- Répétition des éléments pour un défilement continu -->
+                    <div class="tech-item"><img src="{% static 'images/services/html5.png' %}" alt="HTML5"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/CSS3.png' %}" alt="CSS3"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/js.png' %}" alt="JavaScript"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/svelte.png' %}" alt="Svelte Kit"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/flet.png' %}" alt="Flet"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/python.png' %}" alt="Phyton"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/django.png' %}" alt="Django"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/MySQL.png' %}" alt="MySQL"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/Postgresql.png' %}" alt="Postgresql"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/photoshop.png' %}" alt="Photoshop"></div>
+
+                    <div class="tech-item"><img src="{% static 'images/services/html5.png' %}" alt="HTML5"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/CSS3.png' %}" alt="CSS3"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/js.png' %}" alt="JavaScript"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/svelte.png' %}" alt="Svelte Kit"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/flet.png' %}" alt="Flet"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/python.png' %}" alt="Phyton"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/django.png' %}" alt="Django"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/MySQL.png' %}" alt="MySQL"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/Postgresql.png' %}" alt="Postgresql"></div>
+                    <div class="tech-item"><img src="{% static 'images/services/photoshop.png' %}" alt="Photoshop"></div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="row clients-testimonials" data-aos="fade-up">
+            <div class="row section-header" data-aos="fade-up">
+                <div class="col-full">
+                    <h3 class="subhead">{% trans 'Témoignages' %}</h3>
+                    <h1 class="display-2">{% trans 'Clients satisfaits' %}</h1>
+                </div>
+            </div> <!-- end section-header -->
+            <div class="col-full">
+                <div class="testimonials">
+
+                    <div class="testimonials__slide">
+                        <p>{% trans "Ma collaboration avec Mr kabore , a été très bénéfique pour mon activité qui consiste au négoce de commodités. Il a mis en place une application qui permet la traçabilité de toutes les opérations ainsi que mon site web qu'il a réalisé. Son expertise a considérablement amélioré notre efficacité opérationnelle." %}</p>
+                        <img src="{% static 'images/avatars/DG2.jpg' %}" alt="Author image" class="testimonials__avatar">
+                        <div class="testimonials__info">
+                            <span class="testimonials__name">{% trans 'Mr Debetou Toh Serge' %}</span>
+                            <span class="testimonials__pos">{% trans 'CEO, Oils of Africa' %}</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonials__slide">
+                        <p>{% trans "Ma collaboration avec Mr kabore , a été très bénéfique pour mon activité qui consiste au négoce de commodités. Il a mis en place une application qui permet la traçabilité de toutes les opérations ainsi que mon site web qu'il a réalisé. Son expertise a considérablement amélioré notre efficacité opérationnelle." %}</p>
+                        <img src="{% static 'images/avatars/DG2.jpg' %}" alt="Author image" class="testimonials__avatar">
+                        <div class="testimonials__info">
+                            <span class="testimonials__name">{% trans 'Mr Debetou Toh Serge' %}</span>
+                            <span class="testimonials__pos">{% trans 'CEO, Oils of Africa' %}</span>
+                        </div>
+                    </div> 
+                    
+                    <div class="testimonials__slide">
+                        <p>{% trans "Ma collaboration avec Mr kabore , a été très bénéfique pour mon activité qui consiste au négoce de commodités. Il a mis en place une application qui permet la traçabilité de toutes les opérations ainsi que mon site web qu'il a réalisé. Son expertise a considérablement amélioré notre efficacité opérationnelle." %}</p>
+                        <img src="{% static 'images/avatars/DG2.jpg' %}" alt="Author image" class="testimonials__avatar">
+                        <div class="testimonials__info">
+                            <span class="testimonials__name">{% trans 'Mr Debetou Toh Serge' %}</span>
+                            <span class="testimonials__pos">{% trans 'CEO, Oils of Africa' %}</span>
+                        </div>
+                    </div>
+
+                </div><!-- end testimonials -->
+                
+            </div> <!-- end col-full -->
+        </div> <!-- end client-testimonials -->
+
+    </section> <!-- end s-clients -->
+
+
+    <!-- contact
+    ================================================== -->
+    <section id="contact" class="s-contact">
+
+        <div class="overlay"></div>
+        <div class="contact__line"></div>
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">{% trans 'nous contacter' %}</h3>
+                <h1 class="display-2 display-2--light">{% trans 'contactez-nous pour un nouveau projet ou simplement dire bonjour' %}</h1>
+            </div>
+        </div>
+
+        <div class="row contact-content" data-aos="fade-up">
+            
+            <div class="contact-primary">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <h3 class="h6">{% trans 'Envoyer un message' %}</h3>
+
+                <form method="post" action="{% url 'accueil' %}">
+                    {% csrf_token %}
+                    <fieldset>
+    
+                    <div class="form-field">
+                        <input name="contactName" type="text" id="contactName" value="" minlength="2" required="" aria-required="true" class="full-width" onfocus="this.placeholder = ''" onblur="this.placeholder = '{% trans 'Nom et prénoms *' %}'" placeholder="{% trans 'Nom et prénoms *' %}" pattern="[A-Za-z]+" title="{% trans 'Les chiffres ne sont pas autorisés' %}">
+                    </div>
+                    <div class="form-field">
+                        <input name="contactEmail" type="email" id="contactEmail" value="" required="" aria-required="true" class="full-width" onfocus="this.placeholder = ''" onblur="this.placeholder = '{% trans 'Votre Email *' %}'" placeholder="{% trans 'Votre Email *' %}">
+                    </div>
+                    <div class="form-field">
+                        <input name="contactNumber" type="text" id="contactNumber" value="" class="full-width" type="tel" onfocus="this.placeholder = ''" onblur="this.placeholder = 'contact +225 00 00 00 00 *'" placeholder="contact +225 00 00 00 00 *" pattern="[0-9]+" title="{% trans 'Ne pas inclure de lettres' %}" required oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="10">
+                    </div>
+                
+                    <div class="form-field">
+                        <input name="contactSubject" type="text" id="contactSubject" value="" class="full-width" onfocus="this.placeholder = ''" onblur="this.placeholder = '{% trans 'Sujet *' %}'" placeholder="{% trans 'Sujet *' %}">
+                    </div>
+                    <div class="form-field">
+                        <textarea name="contactMessage" id="contactMessage" placeholder="{% trans 'Votre Message' %}" rows="10" cols="50" required="" aria-required="true" class="full-width" maxlength="300" required onfocus="this.placeholder = ''" onblur="this.placeholder = '{% trans 'Votre Message *' %}'"></textarea>
+                    </div>
+                    <div class="form-field">
+                        <span id="caracteres">0</span> /300
+                    </div>
+                    <div class="form-field">
+                        <button class="full-width btn--primary">{% trans 'Envoyer' %}</button>
+                        <div class="submit-loader">
+                            <div class="text-loader">{% trans 'Envoi...' %}</div>
+                            <div class="s-loader">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    </fieldset>
+                </form>
+
+                <!-- contact-warning -->
+                <div class="message-warning">
+                    {% trans "Quelque chose s'est mal passé. Veuillez réessayer." %}
+                </div> 
+            
+                <!-- contact-success -->
+                <div class="message-success">
+                    {% trans "Votre message a été envoyé, merci!"%}<br>
+                </div>
+
+            </div> <!-- end contact-primary -->
+
+            <div class="contact-secondary">
+                <div class="contact-info">
+
+                    <h3 class="h6 hide-on-fullwidth">{% trans 'Informations de contact' %}</h3>
+
+                    <div class="cinfo">
+                        <h5>{% trans 'Où me trouver' %}</h5>
+                        <p>
+                            {% trans "Côte d'ivoire" %}<br>
+                            {% trans 'Grand-Bassam' %}<br>
+                            {% trans 'Modeste/cité azur villa 22' %}<br>
+                            
+                        </p>
+                    </div>
+
+                    <div class="cinfo">
+                        <h5>{% trans 'Envoyez-moi un e-mail' %}</h5>
+                        <p>
+                            <a href="mailto:ibrahimkabore025@gmail.com">ibrahimkabore025@gmail.com</a><br>
+                            <a href="mailto:ibrakdev@gmail.com">ibrakdev@gmail.com</a>
+                            
+                        </p>
+                    </div>
+
+                    <div class="cinfo">
+                        <h5>{% trans 'Appeler nous' %}</h5>
+                        <p>
+                            <a href="tel:+2250584603011">(+225) 05 84 60 30 11</a><br>
+                            <a href="tel:+2250102331740">(+225) 01 02 33 17 40</a><br>
+                            <a href="tel:+2250705255596">(+225) 07 05 25 55 96</a><br>
+                        </p>
+                    </div>
+
+                    <ul class="contact-social">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                        </li>
+                    </ul> <!-- end contact-social -->
+
+                </div> <!-- end contact-info -->
+            </div> <!-- end contact-secondary -->
+
+        </div> <!-- end contact-content -->
+
+    </section> <!-- end s-contact -->
+
+
+    <!-- footer
+    ================================================== -->
+    <footer>
+        <div class="row footer-main">
+            <div class="col-six tab-full left footer-desc">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" width="100" height="100">
+                <br>
+                {% trans 'À propos de moi' %}
+                
+                {% trans "Je suis un développeur passionné par la création de solutions innovantes et fonctionnelles. Mon approche combine créativité et rigueur technique pour livrer des projets de qualité qui répondent précisément aux besoins des clients. Avec plusieurs années d'expérience dans le développement web, je m'efforce d'optimiser chaque ligne de code pour offrir des expériences utilisateur exceptionnelles." %}
+            </div>
+            <div class="col-six tab-full right footer-subscribe">
+                <h4>{% trans 'Restez informé' %}</h4>
+                <p>{% trans "Abonnez-vous à ma newsletter pour recevoir mes dernières réalisations, articles techniques et conseils en développement. Je partage régulièrement des astuces, des analyses de projets et des informations sur les nouvelles technologies que j'explore. Rejoignez ma communauté pour échanger sur les meilleures pratiques du secteur." %}</p>
+                <div class="subscribe-form">
+                    <form id="mc-form" class="group" novalidate="true">
+                        <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="{% trans 'Votre adresse email' %}" required="" style="border: 1px solid white;">
+                        <input type="submit" name="subscribe" value="{% trans "S'abonner" %}">
+                        <label for="mc-email" class="subscribe-message"></label>
+                    </form>
+                </div>  
+            </div>
+        </div> <!-- end footer-main -->
+
+        <div class="row footer-bottom">
+            <div class="col-twelve">
+                <div class="copyright">
+                    <span>© Copyright 2025</span>
+                    <script>
+                        const currentYear = new Date().getFullYear();
+                        const creationYear = 2025;
+                        if (currentYear > creationYear) {
+                            document.write(' - ' + currentYear);
+                        }
+                    </script>
+                    <span style="margin-left: 15px;">Powered by <img src="{% static 'images/logo.png' %}" alt="Logo" width="100" height="100" style="vertical-align: middle;"></span>
+                </div>
+                <div class="go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top"><i class="icon-arrow-up" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div> <!-- end footer-bottom -->
+
+    </footer> <!-- end footer -->
+
+
+    <!-- photoswipe background
+    ================================================== -->
+    <div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
+
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title=
+                    "Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title=
+                    "Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button> <button class="pswp__button pswp__button--arrow--right" title=
+                "Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div> <!-- end photoSwipe background -->
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale-pulse-out">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script>
+        var message = document.getElementById('contactMessage');
+        var caracteres = document.getElementById('caracteres');
+    
+        message.addEventListener('input', function() {
+          caracteres.textContent = message.value.length;
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fonction pour animer l'effet de saisie de texte
+            function typeWriter(element, text, speed, callback) {
+              let i = 0;
+              element.innerHTML = '';
+              
+              function typing() {
+                if (i < text.length) {
+                  element.innerHTML += text.charAt(i);
+                  i++;
+                  setTimeout(typing, speed);
+                } else if (callback) {
+                  callback();
+                }
+              }
+              
+              typing();
+            }
+          
+            // Récupérer les éléments
+            const titleElement = document.getElementById('typingTitle');
+            const textElement = document.getElementById('typingText');
+            
+            // Récupérer le texte original (déjà traduit par Django)
+            const titleText = titleElement.textContent;
+            const paragraphText = textElement.textContent;
+            
+            // Cacher le paragraphe immédiatement
+            textElement.style.visibility = 'hidden';
+            
+            // Démarrer l'animation du titre, puis enchainer avec le paragraphe
+            typeWriter(titleElement, titleText, 50, function() {
+              // Une fois le titre terminé, rendre le paragraphe visible puis démarrer son animation
+              textElement.style.visibility = 'visible';
+              textElement.innerHTML = '';  // S'assurer qu'il est vide avant l'animation
+              typeWriter(textElement, paragraphText, 50);
+            });
+          });
+      </script>
+      <script>
+        const languageButton = document.getElementById('languageSelector');
+        const languageMenu = document.getElementById('languageMenu');
+        const selectedLanguageSpan = document.querySelector('.selected-language');
+      
+        // Toggle the dropdown on button click
+        languageButton.addEventListener('click', function() {
+          languageMenu.classList.toggle('show');
+        });
+      
+        // Update the selected language text when a language is clicked
+        const languageItems = document.querySelectorAll('.dropdown-item');
+        
+        languageItems.forEach(item => {
+          item.addEventListener('click', function() {
+            // Update the text in the 'selected-language' span
+            selectedLanguageSpan.textContent = item.getAttribute('data-lang');
+            
+            // Optionally close the dropdown after selection
+            languageMenu.classList.remove('show');
+          });
+        });
+      </script>
+      
+      
+</body>
+
+</html>
